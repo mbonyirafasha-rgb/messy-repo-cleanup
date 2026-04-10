@@ -1,2 +1,2 @@
-# messy-repo
-'Messy Repo' for students to reorganize
+# Diarrhea Prevalence and Environmental Risk Factors in Kigali
+This project analyzes the prevalence of diarrhea in Kigali and examines environmental and behavioral factors associated with the disease. Using statistical analysis and data visualization, the study identifies poor sanitation, unsafe drinking water, and limited healthcare access as key contributors to diarrheal disease risk among surveyed individuals.
