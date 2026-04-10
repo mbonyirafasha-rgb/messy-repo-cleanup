@@ -1,0 +1,91 @@
+from matplotlib import pyplot as plt
+import pandas as pd
+
+# Prevalence data (from context)
+total = 1000
+diarrhea_yes = int(0.769 * total)
+diarrhea_no = total - diarrhea_yes
+
+# Table of factors
+data = {
+    "Factor": [
+        "Poor sanitation conditions",
+        "Unsafe drinking water",
+        "Lack of handwashing practices",
+        "Malnutrition",
+        "Overcrowded housing conditions",
+        "Limited access to healthcare",
+        "Exposure to flooding/stagnant water",
+        "Improper waste disposal",
+        "High environmental temperatures"
+    ],
+    "Category": [
+        "Environmental",
+        "Environmental",
+        "Behavioral",
+        "Nutritional",
+        "Social",
+        "Healthcare",
+        "Environmental",
+        "Environmental",
+        "Environmental"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+# Display table
+print("Risk Factors Table:")
+display(df)
+
+# Plot prevalence bar chart
+labels = ["Diarrhea", "No Diarrhea"]
+values = [diarrhea_yes, diarrhea_no]
+
+plt.figure()
+plt.bar(labels, values)
+plt.title("Diarrhea Prevalence in Study Population")
+plt.ylabel("Number of Participants")
+plt.xlabel("Health Outcome")
+
+plt.show()
+library(tidyverse)
+
+# Load data
+data <- read.csv("data/raw/kigali_diarrhea_data.csv")
+
+# View data
+str(data)
+
+# Convert variables
+data$diarrhea <- as.factor(data$diarrhea)
+data$poor_sanitation <- as.factor(data$poor_sanitation)
+
+# Calculate prevalence
+diarrhea_prev <- data %>%
+  count(diarrhea) %>%
+  mutate(percent = n/sum(n)*100)
+
+print(diarrhea_prev)
+
+# Plot prevalence
+ggplot(diarrhea_prev, aes(x="", y=percent, fill=diarrhea)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y") +
+  theme_void() +
+  labs(title="Prevalence of Diarrhea in Kigali")
+
+# Logistic regression
+model <- glm(diarrhea ~ unsafe_water +
+                          poor_sanitation +
+                          handwashing +
+                          malnutrition +
+                          overcrowding +
+                          healthcare_access,
+             data=data,
+             family="binomial")
+
+summary(model)
+
+# Odds ratios
+exp(coef(model))
